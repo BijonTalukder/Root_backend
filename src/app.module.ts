@@ -5,12 +5,23 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './infrastructure/database/database.module';
 import { SchemaLoaderModule } from './lib/schemas/schema-loader/schema-loader.module';
 import { LoggerMiddleware } from './lib/middlewares/logger.middleware';
+import { AdminModule } from './services/admin/admin.module';
+import { JwtModule } from '@nestjs/jwt';
+
 @Module({
   imports: [ 
     ConfigModule.forRoot({ isGlobal: true }),
     ConfigModule.forRoot({ isGlobal: true }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.SECRET_KEY!,
+      signOptions: {
+        expiresIn: '120d',
+      },
+    }),
     SchemaLoaderModule,
     DatabaseModule.register(),
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],

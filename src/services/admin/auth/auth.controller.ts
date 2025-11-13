@@ -22,7 +22,10 @@ import { IRequest } from 'src/lib/interfaces/request';
 
 @Controller('admin/auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {
+    console.log(11111111);
+    
+  }
 
 
  @Post('create')

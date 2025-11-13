@@ -33,7 +33,10 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService,
     // private rmqBroker: AmqpConnection,
-  ) {}
+  ) {
+    console.log(123);
+    
+  }
 
   private generateOtp(): string {
     return this.isProduction
@@ -43,10 +46,12 @@ export class AuthService {
 
      async create(data:CreateAdminDto){
          const admin = await this.adminModel.findOne({ email: data.email });
-       if (!admin) {
+      console.log(admin)
+
+         if (!admin) {
       throw new NotFoundException('email already exist!');
         }
-
+console.log(admin)
         const res= await this.adminModel.create(data)
         return res;
 
