@@ -37,10 +37,10 @@ export class GalleryFrame {
 @Schema({ versionKey: false, timestamps: true })
 export class GallerySection {
   @Prop({ required: true, type: String })
-  section_name: string;
+  sectionName: string;
 
   @Prop({ required: false, type: String })
-  section_description?: string;
+  sectionDescription?: string;
 
   @Prop({ required: false, type: Number, default: 1 })
   orderBy?: number;

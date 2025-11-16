@@ -17,13 +17,14 @@ import {
   SubmitOtpDto,
 } from 'src/lib/dtos/admin-auth.dto';
 import { IRequest } from 'src/lib/interfaces/request';
+import { AdminAuthGuard } from 'src/lib/guards/AdminAuthGuard';
 // import { IRequest } from 'src/lib/interfaces/request';
 // import { AdminAuthGuard } from 'src/lib/guards/admin-auth.guard';
 
 @Controller('admin/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {
-    console.log(11111111);
+    // console.log(11111111);
     
   }
 
@@ -38,7 +39,7 @@ export class AuthController {
     return await this.authService.login(body);
   }
 
-//   @UseGuards(AdminAuthGuard)
+  @UseGuards(AdminAuthGuard)
   @Get('me')
   async getProfile(@Req() req: IRequest) {
     return await this.authService.getProfile(req);

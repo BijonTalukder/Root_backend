@@ -7,6 +7,12 @@ import { SchemaLoaderModule } from './lib/schemas/schema-loader/schema-loader.mo
 import { LoggerMiddleware } from './lib/middlewares/logger.middleware';
 import { AdminModule } from './services/admin/admin.module';
 import { JwtModule } from '@nestjs/jwt';
+import { TestimonialModule } from './services/admin/testimonial/testimonial.module';
+import { TeamModule } from './services/admin/team/team.module';
+import { GlobalSettingModule } from './services/admin/global-settings/globalSetting.module';
+import { GalleryModule } from './services/admin/gallery/gallery.module';
+import { ContactUsModule } from './services/public/contact-us/contactUs.module';
+import { CareerModule } from './services/admin/carrer/career.module';
 
 @Module({
   imports: [ 
@@ -21,7 +27,13 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     SchemaLoaderModule,
     DatabaseModule.register(),
-    AdminModule
+    AdminModule,
+    TestimonialModule,
+    TeamModule,
+    GlobalSettingModule,
+    GalleryModule,
+    ContactUsModule,
+    CareerModule
   ],
   controllers: [AppController],
   providers: [AppService],

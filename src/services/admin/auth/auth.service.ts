@@ -34,7 +34,7 @@ export class AuthService {
     private configService: ConfigService,
     // private rmqBroker: AmqpConnection,
   ) {
-    console.log(123);
+    // console.log(123);
     
   }
 
@@ -46,9 +46,9 @@ export class AuthService {
 
      async create(data:CreateAdminDto){
          const admin = await this.adminModel.findOne({ email: data.email });
-      console.log(admin)
+      // console.log(admin)
 
-         if (!admin) {
+         if (admin) {
       throw new NotFoundException('email already exist!');
         }
 console.log(admin)
