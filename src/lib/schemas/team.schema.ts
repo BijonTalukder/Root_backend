@@ -27,4 +27,15 @@ export class Team{
 
 
 }
+
 export const TeamSchema = SchemaFactory.createForClass(Team);
+TeamSchema.index({ status: 1, orderBy: 1 });
+TeamSchema.set('toJSON', {
+  transform(_doc, ret: Record<string, any>): Record<string, any> {
+
+    return JSON.parse(JSON.stringify(ret).replace(/_id/g, 'id')) as Record<
+      string,
+      any
+    >;
+  },
+});

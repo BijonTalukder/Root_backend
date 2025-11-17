@@ -52,5 +52,27 @@ export class GallerySection {
   gallery: GalleryFrame[];
 }
 
-export const GallerySectionSchema =
-  SchemaFactory.createForClass(GallerySection);
+export const GallerySectionSchema =SchemaFactory.createForClass(GallerySection);
+GallerySectionSchema.index({ status: 1, orderBy: 1 });
+GallerySectionSchema.index({ sectionName: 1 });
+GallerySectionSchema.index({ status: 1, orderBy: 1, sectionName: 1 });
+GallerySectionSchema.set("toJSON", {
+  transform(doc, ret) {
+    delete ret.__v;
+
+    // Recursively update image URLs
+    if (ret.gallery?.length) {
+      ret.gallery.forEach((frame: any) => {
+        if (frame.images?.length) {
+          frame.images = frame.images.map((img: any) => ({
+            ...img,
+            url: img.url.startsWith("http")
+              ? img.url
+              : `${process.env.AWS_BASE_URL}/${img.url}`,
+          }));
+        }
+      });
+    }
+    return JSON.parse(JSON.stringify(ret).replace(/"_id"/g, '"id"'));
+  },
+});

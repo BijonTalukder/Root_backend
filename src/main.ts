@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { RequestMethod } from '@nestjs/common';
 import { ResponseInterceptor } from './lib/interceptor/response.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { CacheHeaderInterceptor } from './common/interceptors/cache-header.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,7 +14,10 @@ async function bootstrap() {
       { path: '/health', method: RequestMethod.ALL },
     ],
   });
-  app.useGlobalInterceptors(new ResponseInterceptor());
+  app.useGlobalInterceptors(
+    new ResponseInterceptor(),
+
+new CacheHeaderInterceptor(),);
 
     const config = new DocumentBuilder()
     .setTitle('My API Docs')

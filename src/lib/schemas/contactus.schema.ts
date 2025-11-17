@@ -28,3 +28,12 @@ export class ContactUs {
 }
 
 export const ContactUsSchema = SchemaFactory.createForClass(ContactUs);
+ContactUsSchema.set('toJSON', {
+  transform(_doc, ret: Record<string, any>): Record<string, any> {
+
+    return JSON.parse(JSON.stringify(ret).replace(/_id/g, 'id')) as Record<
+      string,
+      any
+    >;
+  },
+});

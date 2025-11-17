@@ -28,3 +28,13 @@ export class Testimonial{
 
 }
 export const TestimonialSchema = SchemaFactory.createForClass(Testimonial);
+TestimonialSchema.index({ status: 1, orderBy: 1 });
+TestimonialSchema.set('toJSON', {
+  transform(_doc, ret: Record<string, any>): Record<string, any> {
+
+    return JSON.parse(JSON.stringify(ret).replace(/_id/g, 'id')) as Record<
+      string,
+      any
+    >;
+  },
+});

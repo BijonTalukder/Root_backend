@@ -1,14 +1,23 @@
-import { Controller } from "@nestjs/common";
-import { ContactUsService } from "./contactUs.service";
+import { Body, Controller, Post } from "@nestjs/common";
+import { ContactUsDto } from "src/lib/dtos/contact-us.dto";
+import { ResponseHandler } from "src/lib/interfaces/responseHandler";
+import { ContactUsService } from "src/services/admin/contact-us/contactUs.service";
 
 
-@Controller('admin/contact-us')
+@Controller('public/contact-us')
 export class ContactUsController{
     constructor(
-                private readonly contractUsService:ContactUsService
+                private readonly contactUsService:ContactUsService
 
     ){}
-    async create(){
-        // await this.contractUsService.Create({name:"test"})
-    }
+      @Post("create")
+      async create(@Body() payload: ContactUsDto): Promise<ResponseHandler> {
+        const res = await this.contactUsService.create(payload);
+        return {
+          success: true,
+          data: res,
+          message: "Contact message submitted successfully!",
+        };
+      }
+   
 }

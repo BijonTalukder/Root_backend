@@ -30,12 +30,13 @@ async getAllGallerySection({
     filter.status = status;
   }
 
-  return await this.gallerySectionModel.aggregate([
+  const sections = await this.gallerySectionModel.aggregate([
     { $match: filter },
 
     // Sort Sections
     { $sort: { [sortby]: 1 } },
 
+    // Sort frames and images
     {
       $set: {
         gallery: {
@@ -59,8 +60,6 @@ async getAllGallerySection({
         },
       },
     },
-
-    // Sort frames by page
     {
       $set: {
         gallery: {
@@ -72,7 +71,24 @@ async getAllGallerySection({
       },
     },
   ]);
+
+  // Add base URL manually
+  const baseUrl = process.env.AWS_BASE_URL;
+
+  return sections.map((section) => ({
+    ...section,
+    gallery: section.gallery.map((frame) => ({
+      ...frame,
+      images: frame.images.map((img) => ({
+        ...img,
+        url: img.url.startsWith("http")
+          ? img.url
+          : `${baseUrl}/${img.url}`,
+      })),
+    })),
+  }));
 }
+
 
  async findOne(id: string) {
     const section = await this.gallerySectionModel.findById(id).exec();

@@ -39,3 +39,16 @@ export class Apply {
 }
 
 export const ApplySchema = SchemaFactory.createForClass(Apply);
+
+ApplySchema.set('toJSON', {
+  transform(_doc, ret: Record<string, any>): Record<string, any> {
+
+    if (ret?.resume) {
+      ret.resume = `${process.env.AWS_BASE_URL}/${ret.resume}`;
+    }
+    return JSON.parse(JSON.stringify(ret).replace(/_id/g, 'id')) as Record<
+      string,
+      any
+    >;
+  },
+});

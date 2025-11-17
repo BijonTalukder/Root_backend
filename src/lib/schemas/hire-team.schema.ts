@@ -44,7 +44,7 @@ export class HireTeam {
   note?: string;
 
   @Prop({ type: [RoleAllocation], default: [] })
-  role_allocation: RoleAllocation[];
+  roleAllocation: RoleAllocation[];
 
   @Prop({ default: true })
   status: boolean;

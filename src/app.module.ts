@@ -11,8 +11,12 @@ import { TestimonialModule } from './services/admin/testimonial/testimonial.modu
 import { TeamModule } from './services/admin/team/team.module';
 import { GlobalSettingModule } from './services/admin/global-settings/globalSetting.module';
 import { GalleryModule } from './services/admin/gallery/gallery.module';
-import { ContactUsModule } from './services/public/contact-us/contactUs.module';
+// import { ContactUsModule } from './services/public/contact-us/contactUs.module';
 import { CareerModule } from './services/admin/carrer/career.module';
+import { ContactUsModule } from './services/admin/contact-us/contactUs.module';
+import { ApplyModule } from './services/admin/apply/apply.module';
+import { HireTeamModule } from './services/admin/hire-team/hireTeam.module';
+import { PublicModule } from './services/public/public.module';
 
 @Module({
   imports: [ 
@@ -28,12 +32,9 @@ import { CareerModule } from './services/admin/carrer/career.module';
     SchemaLoaderModule,
     DatabaseModule.register(),
     AdminModule,
-    TestimonialModule,
-    TeamModule,
-    GlobalSettingModule,
-    GalleryModule,
-    ContactUsModule,
-    CareerModule
+    PublicModule
+   
+    
   ],
   controllers: [AppController],
   providers: [AppService],
